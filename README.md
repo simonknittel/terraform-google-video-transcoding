@@ -1,4 +1,4 @@
-# Video Transcoding
+# Video transcoding and serving via Google Cloud
 
 ## MPEG-4 / H.264
 
