@@ -12,10 +12,16 @@ variable "project" { type = string }
 variable "region" { type = string }
 variable "location" { type = string }
 variable "service_account" { type = string }
-variable "env_mailgun_api_key" { type = string }
-variable "env_mailgun_domain_name" { type = string }
-variable "env_mail_receiver" { type = string }
-variable "env_cdn_base_url" { type = string }
+
+variable "video_input_bucket" { type = string }
+variable "video_output_bucket" { type = string }
+variable "function_sources_bucket" { type = string }
+variable "function_name" { type = string }
+
+variable "func_mailgun_api_key" { type = string }
+variable "func_mailgun_domain_name" { type = string }
+variable "func_mail_receiver" { type = string }
+variable "func_cdn_base_url" { type = string }
 
 provider "google" {
   project = var.project
@@ -23,7 +29,7 @@ provider "google" {
 }
 
 resource "google_storage_bucket" "input" {
-  name = "sk-video-transcoding-input-beta"
+  name = var.video_input_bucket
   location = var.location
 
   uniform_bucket_level_access = true
@@ -46,7 +52,7 @@ resource "google_storage_bucket_iam_member" "sa_viewer" {
 }
 
 resource "google_storage_bucket" "output" {
-  name = "sk-video-transcoding-output-beta"
+  name = var.video_output_bucket
   location = var.location
 
   uniform_bucket_level_access = true
@@ -65,7 +71,7 @@ resource "google_storage_bucket_iam_member" "public_viewer" {
 }
 
 resource "google_storage_bucket" "sources" {
-  name = "sk-video-transcoding-sources-beta"
+  name = var.function_sources_bucket
   location = var.location
 }
 
@@ -82,7 +88,7 @@ resource "google_storage_bucket_object" "transcode_python" {
 }
 
 resource "google_cloudfunctions_function" "transcode_python" {
-  name = "transcode-python-beta"
+  name = var.function_name
   runtime = "python37"
 
   available_memory_mb = 512
@@ -102,10 +108,10 @@ resource "google_cloudfunctions_function" "transcode_python" {
   environment_variables = {
     INPUT_BUCKET = google_storage_bucket.input.name
     OUTPUT_BUCKET = google_storage_bucket.output.name
-    MAILGUN_API_KEY = var.env_mailgun_api_key
-    MAILGUN_DOMAIN_NAME = var.env_mailgun_domain_name
-    MAIL_RECEIVER = var.env_mail_receiver
-    CDN_BASE_URL = var.env_cdn_base_url
+    MAILGUN_API_KEY = var.func_mailgun_api_key
+    MAILGUN_DOMAIN_NAME = var.func_mailgun_domain_name
+    MAIL_RECEIVER = var.func_mail_receiver
+    CDN_BASE_URL = var.func_cdn_base_url
   }
 }
 
