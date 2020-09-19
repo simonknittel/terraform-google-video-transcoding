@@ -1,71 +1,7 @@
 terraform {
-  backend "remote" {
-    organization = "simonknittel"
+  required_version = ">= 0.12"
 
-    workspaces {
-      name = "gcloud-video-transcoding"
-    }
-  }
-}
-
-variable "project" {
-  type = string
-  description = "Name of your Google Cloud project."
-}
-
-variable "region" {
-  type = string
-  description = "The region which the Google Cloud resource will be created in."
-}
-
-variable "location" {
-  type = string
-  description = "The location which the Google Cloud resource will be created in."
-}
-
-variable "service_account" {
-  type = string
-  description = "The Google Cloud service account which will download the videos from the input bucket, will run the function to transcode the video and upload it to the output bucket."
-}
-
-variable "video_input_bucket" {
-  type = string
-  description = "Name of the Google Cloud Storage bucket which you will upload videos to."
-}
-
-variable "video_output_bucket" {
-  type = string
-  description = "Name of the Google Cloud Storage bucket which the transcoded videos will be served from."
-}
-
-variable "function_sources_bucket" {
-  type = string
-  description = "Name of the Google Cloud Storage bucket which the source code for the Google Cloud Function will be hosted in."
-}
-
-variable "function_name" {
-  type = string
-  description = "Name of the Google Cloud Function which will do the video transcoding."
-}
-
-variable "func_cdn_base_url" { type = string } // TODO: Add description
-
-variable "func_mailgun_domain_name" {
-  type = string
-  default = ""
-  description = "Mailgun domain which will be used to send the success notification email."
-}
-
-variable "func_mailgun_api_key" {
-  type = string
-  default = ""
-  description = "API key of your Mailgun domain which will be used to send the success notification email."
-}
-
-variable "func_mail_receiver" {
-  type = string
-  default = ""
-  description = "Email address the success notification should be send to."
+  backend "remote" {}
 }
 
 provider "google" {
@@ -122,8 +58,8 @@ resource "google_storage_bucket" "sources" {
 
 data "archive_file" "transcode_python" {
   type = "zip"
-  source_dir = "../functions/transcode-python"
-  output_path = "../functions/transcode-python.zip"
+  source_dir = "./functions/transcode-python"
+  output_path = "./functions/transcode-python.zip"
 }
 
 resource "google_storage_bucket_object" "transcode_python" {

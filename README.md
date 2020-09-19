@@ -9,3 +9,9 @@
 
   <p><em>work in progress</em></p>
 </div>
+
+## Usage
+
+1. Duplicate `sample.tfvars` to `prod.tfvars` or similar
+2. Modify the Terraform variables in `prod.tfvars` to your needs
+3. Run `terraform apply -var-file prod.tfvars`
