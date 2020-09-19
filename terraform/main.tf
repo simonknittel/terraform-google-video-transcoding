@@ -8,20 +8,65 @@ terraform {
   }
 }
 
-variable "project" { type = string }
-variable "region" { type = string }
-variable "location" { type = string }
-variable "service_account" { type = string }
+variable "project" {
+  type = string
+  description = "Name of your Google Cloud project."
+}
 
-variable "video_input_bucket" { type = string }
-variable "video_output_bucket" { type = string }
-variable "function_sources_bucket" { type = string }
-variable "function_name" { type = string }
+variable "region" {
+  type = string
+  description = "The region which the Google Cloud resource will be created in."
+}
 
-variable "func_mailgun_api_key" { type = string }
-variable "func_mailgun_domain_name" { type = string }
-variable "func_mail_receiver" { type = string }
-variable "func_cdn_base_url" { type = string }
+variable "location" {
+  type = string
+  description = "The location which the Google Cloud resource will be created in."
+}
+
+variable "service_account" {
+  type = string
+  description = "The Google Cloud service account which will download the videos from the input bucket, will run the function to transcode the video and upload it to the output bucket."
+}
+
+variable "video_input_bucket" {
+  type = string
+  description = "Name of the Google Cloud Storage bucket which you will upload videos to."
+}
+
+variable "video_output_bucket" {
+  type = string
+  description = "Name of the Google Cloud Storage bucket which the transcoded videos will be served from."
+}
+
+variable "function_sources_bucket" {
+  type = string
+  description = "Name of the Google Cloud Storage bucket which the source code for the Google Cloud Function will be hosted in."
+}
+
+variable "function_name" {
+  type = string
+  description = "Name of the Google Cloud Function which will do the video transcoding."
+}
+
+variable "func_cdn_base_url" { type = string } // TODO: Add description
+
+variable "func_mailgun_domain_name" {
+  type = string
+  default = ""
+  description = "Mailgun domain which will be used to send the success notification email."
+}
+
+variable "func_mailgun_api_key" {
+  type = string
+  default = ""
+  description = "API key of your Mailgun domain which will be used to send the success notification email."
+}
+
+variable "func_mail_receiver" {
+  type = string
+  default = ""
+  description = "Email address the success notification should be send to."
+}
 
 provider "google" {
   project = var.project
@@ -108,8 +153,8 @@ resource "google_cloudfunctions_function" "transcode_python" {
   environment_variables = {
     INPUT_BUCKET = google_storage_bucket.input.name
     OUTPUT_BUCKET = google_storage_bucket.output.name
-    MAILGUN_API_KEY = var.func_mailgun_api_key
     MAILGUN_DOMAIN_NAME = var.func_mailgun_domain_name
+    MAILGUN_API_KEY = var.func_mailgun_api_key
     MAIL_RECEIVER = var.func_mail_receiver
     CDN_BASE_URL = var.func_cdn_base_url
   }
@@ -120,3 +165,5 @@ resource "google_cloudfunctions_function_iam_member" "sa_invoker" {
   role = "roles/cloudfunctions.invoker"
   member = var.service_account
 }
+
+// TODO: Add Terraform config for Load Balancer and CDN

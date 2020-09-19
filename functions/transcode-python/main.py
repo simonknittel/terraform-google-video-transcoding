@@ -49,7 +49,15 @@ def clean_up(input_file, local_h264_output_file):
     os.remove(local_h264_output_file)
 
 def email(bucket_h264_output_file):
-    print("Sending success mail ...")
+    if (
+        not os.environ.get("MAILGUN_DOMAIN_KEY")
+        or not os.environ.get("MAILGUN_API_KEY")
+        or not os.environ.get("MAIL_RECEIVER")
+    ):
+        print("MAILGUN_API_KEY, MAILGUN_DOMAIN_NAME or MAIL_RECEIVER missing. Skipping sending success notification email ...")
+        return
+
+    print("Sending success notification email ...")
     requests.post(
         "https://api.eu.mailgun.net/v3/{}/messages".format(os.environ.get("MAILGUN_DOMAIN_NAME")),
         auth=("api", os.environ.get("MAILGUN_API_KEY")),
