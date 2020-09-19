@@ -1,3 +1,13 @@
+terraform {
+  backend "remote" {
+    organization = "simonknittel"
+
+    workspaces {
+      name = "gcloud-video-transcoding"
+    }
+  }
+}
+
 variable "project" { type = string }
 variable "region" { type = string }
 variable "location" { type = string }
