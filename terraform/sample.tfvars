@@ -1,0 +1,8 @@
+project = ""
+region = ""
+location = ""
+service_account = ""
+env_mailgun_api_key = ""
+env_mailgun_domain_name = ""
+env_mail_receiver = ""
+env_cdn_base_url = ""
