@@ -5,6 +5,8 @@
 
   <p>Uses ffmpeg running on Google Cloud Functions for the transcoding process.</p>
 
+  <a href="https://registry.terraform.io/modules/simonknittel/video-transcoding/google/" target="_blank" rel="noopener">Module on Terraform Registry</a>
+
   <hr>
 
   <p><em>work in progress</em></p>
