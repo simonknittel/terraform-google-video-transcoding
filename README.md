@@ -16,4 +16,29 @@
 
 ## Usage
 
-See [examples directory](./examples/)
+Minimal setup:
+
+1. Create a Google Cloud project and service account
+2. Add the module to your main.tf
+3. Adjust the variables of the module to your needs
+
+```tf
+# main.tf
+
+module "video-transcoding" {
+  source = "simonknittel/video-transcoding/google"
+  version = "0.1.0"
+
+  project = ""
+  region = "europe-west3"
+  location = "EUROPE-WEST3"
+  service_account = "serviceAccount:???@???.iam.gserviceaccount.com"
+
+  video_input_bucket = ""
+  video_output_bucket = ""
+  function_sources_bucket = ""
+  function_name = ""
+}
+```
+
+See [examples directory](./examples/) for more examples.
