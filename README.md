@@ -12,7 +12,7 @@
 
 ## Overview
 
-[](https://raw.githubusercontent.com/simonknittel/terraform-google-video-transcoding/master/.github/assets/terraform-google-video-transcoding.svg)
+![](https://raw.githubusercontent.com/simonknittel/terraform-google-video-transcoding/master/.github/assets/terraform-google-video-transcoding.svg)
 
 ## Usage
 
