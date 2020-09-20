@@ -44,7 +44,11 @@ variable "function_name" {
   type = string
 }
 
-variable "func_cdn_base_url" { type = string } // TODO: Add description
+variable "func_cdn_base_url" {
+  description = "" // TODO: Add description
+  type = string
+  default = ""
+}
 
 variable "func_mailgun_domain_name" {
   description = "Mailgun domain which will be used to send the success notification email."

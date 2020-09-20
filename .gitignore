@@ -1,11 +1,11 @@
-.terraform/
+examples/**/.terraform/
 
-.terraform.tfstate*
-terraform.tfstate*
+examples/**/.terraform.tfstate*
+examples/**/terraform.tfstate*
 
-*.tfvars
-!sample.tfvars
+examples/**/*.tfvars
+!examples/**/sample.tfvars
 
-backend.hcl
+examples/**/backend.hcl
 
 functions/transcode-python.zip
