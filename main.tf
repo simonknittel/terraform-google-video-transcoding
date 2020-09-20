@@ -11,6 +11,7 @@ provider "google" {
 
 resource "google_storage_bucket" "input" {
   name = var.video_input_bucket
+  labels = var.labels
   location = var.location
 
   uniform_bucket_level_access = true
@@ -34,6 +35,7 @@ resource "google_storage_bucket_iam_member" "sa_viewer" {
 
 resource "google_storage_bucket" "output" {
   name = var.video_output_bucket
+  labels = var.labels
   location = var.location
 
   uniform_bucket_level_access = true
@@ -53,6 +55,7 @@ resource "google_storage_bucket_iam_member" "public_viewer" {
 
 resource "google_storage_bucket" "sources" {
   name = var.function_sources_bucket
+  labels = var.labels
   location = var.location
 }
 
@@ -70,6 +73,7 @@ resource "google_storage_bucket_object" "transcode_python" {
 
 resource "google_cloudfunctions_function" "transcode_python" {
   name = var.function_name
+  labels = var.labels
   runtime = "python37"
 
   available_memory_mb = 512

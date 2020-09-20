@@ -13,6 +13,12 @@ variable "location" {
   type = string
 }
 
+variable "labels" {
+  description = "Labels your Google Cloud resources should be labeled with."
+  type = map
+  default = {}
+}
+
 variable "service_account" {
   description = "The Google Cloud service account which will download the videos from the input bucket, will run the function to transcode the video and upload it to the output bucket."
   type = string
