@@ -12,7 +12,9 @@
 
 ## Overview
 
-<img src="https://raw.githubusercontent.com/simonknittel/terraform-google-video-transcoding/master/.github/assets/terraform-google-video-transcoding.svg" style="width: 100%">
+<div align="center">
+  <img src="https://raw.githubusercontent.com/simonknittel/terraform-google-video-transcoding/master/.github/assets/terraform-google-video-transcoding.svg">
+</div>
 
 ## Usage
 
