@@ -1,0 +1,5 @@
+organization = ""
+
+workspaces {
+  name = ""
+}

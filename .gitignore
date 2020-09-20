@@ -6,6 +6,7 @@ examples/**/terraform.tfstate*
 examples/**/*.tfvars
 !examples/**/sample.tfvars
 
-examples/**/backend.hcl
+examples/**/*.hcl
+!examples/**/backend.hcl
 
 functions/transcode-python.zip

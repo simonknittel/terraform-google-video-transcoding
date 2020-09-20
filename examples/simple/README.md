@@ -1,5 +1,7 @@
 # Simple example
 
+Minimal setup:
+
 ```tf
 # main.tf
 
