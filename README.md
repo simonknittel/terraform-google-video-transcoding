@@ -10,6 +10,10 @@
   <p><em>work in progress</em></p>
 </div>
 
+## Overview
+
+[]([./.github/assets/](https://github.com/simonknittel/terraform-google-video-transcoding/tree/master/.github/asstes/terraform-google-video-transcoding.svg))
+
 ## Usage
 
 1. Duplicate `sample.tfvars` to `prod.tfvars` or similar
